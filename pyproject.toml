@@ -9,6 +9,7 @@ packages = [{include = "le_insight"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+pre-commit = "^3.6.2"
 
 
 [build-system]
