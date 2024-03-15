@@ -3,11 +3,14 @@ The class `_Settings` defines configuration settings for a Python application us
 with a singleton pattern implemented in the `SingletonSettings` class.
 """
 
+from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class _Settings(BaseSettings):
     APP_NAME: str
+    ENV: Literal["production", "development"]
 
     model_config = SettingsConfigDict(env_file=".env")
 

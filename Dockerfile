@@ -17,7 +17,7 @@ RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 FROM python:3.11
 
 # 
-WORKDIR /api
+WORKDIR /app
 
 # 
 COPY --from=requirements-stage /tmp/requirements.txt /api/requirements.txt
@@ -26,7 +26,8 @@ COPY --from=requirements-stage /tmp/requirements.txt /api/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /api/requirements.txt
 
 # 
-COPY ./src /api/src
+COPY ./app /app
+COPY .env .env
 
 # 
-CMD ["python3", "/api/src/main.py"]
+CMD ["python3", "/app/main.py"]
