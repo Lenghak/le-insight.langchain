@@ -5,17 +5,20 @@ with a singleton pattern implemented in the `SingletonSettings` class.
 
 from typing import Literal
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class _Settings(BaseSettings):
     APP_NAME: str
+
     ENV: Literal["production", "development"]
 
+    OPENAI_API_KEY: str
     model_config = SettingsConfigDict(env_file=".env")
 
 
-class SingletonSettings:
+class Settings:
     """
     The above class is a SingletonSettings class that ensures only one instance of _Settings
     is created and provides a method to access that instance.

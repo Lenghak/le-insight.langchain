@@ -13,7 +13,7 @@ app = FastAPI()
 
 # `setting = config.SingletonSettings.get_instance()` is a line of code that is likely retrieving an
 # instance of a SingletonSettings class from the config module.
-setting = config.SingletonSettings.get_instance()
+setting = config.Settings.get_instance()
 
 # `create_routes(app)` is a function that is responsible for setting up and defining the routes for
 # the FastAPI application instance `app`.This function helps organize the routing logic within the FastAPI application.
