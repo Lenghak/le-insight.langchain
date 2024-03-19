@@ -5,7 +5,6 @@ with a singleton pattern implemented in the `SingletonSettings` class.
 
 from typing import Literal
 
-from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
