@@ -49,4 +49,4 @@ async def generate(body: Articles):
         }
     )
 
-    return json.loads(response["text"])
+    return json.dumps(response["text"])
