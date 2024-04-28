@@ -7,7 +7,11 @@ from core import config
 from fastapi import FastAPI
 from routes import create_routes
 
-# The code snippet `app = FastAPI()` creates an instance of the FastAPI class, which represents a
+# Retrieving an
+# instance of a SingletonSettings class from the config module.
+settings = config.Settings.get_instance()
+
+# Creates an instance of the FastAPI class, which represents a
 # FastAPI application.
 app = FastAPI()
 
@@ -30,5 +34,5 @@ if __name__ == "__main__":
         port=5000,
         log_level="info",
         workers=8,
-        reload=(setting.ENV == "development"),
+        reload=(settings.ENV == "development"),
     )

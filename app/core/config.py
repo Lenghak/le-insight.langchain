@@ -13,6 +13,7 @@ class _Settings(BaseSettings):
 
     ENV: Literal["production", "development"]
 
+    openapi_url: str = "/docs"
     model_config = SettingsConfigDict(env_file=".env")
 
 
