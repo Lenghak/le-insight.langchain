@@ -1,3 +1,5 @@
+from typing import Literal
+
 from core.config import Settings
 from langchain_community.llms.ollama import Ollama
 from langchain_openai import ChatOpenAI
@@ -19,31 +21,15 @@ class OpenAILLM:
 
 # This Python class `Llama2LLM` implements a singleton pattern to ensure only one instance of the
 # class is created.
-class Llama2LLM:
+class OllamaLLM:
 
     _instance = None
 
     @classmethod
-    def get_instance(cls):
+    def get_instance(
+        cls, model: Literal["llama2", "llama3", "llama3:text", "mistral", "mixstral"]
+    ):
         if cls._instance == None:
-            cls._instance = Ollama(
-                model="llama2", format="json", temperature=0
-            )
-
-        return cls._instance
-
-
-# This Python class `Llama2LLM` implements a singleton pattern to ensure only one instance of the
-# class is created.
-class MistralLLM:
-
-    _instance = None
-
-    @classmethod
-    def get_instance(cls):
-        if cls._instance == None:
-            cls._instance = Ollama(
-                model="mistral", format="json", temperature=0
-            )
+            cls._instance = Ollama(model=model, format="json", temperature=0)
 
         return cls._instance
