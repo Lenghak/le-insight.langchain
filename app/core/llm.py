@@ -19,7 +19,7 @@ class OpenAILLM:
         return cls._instance
 
 
-# This Python class `Llama2LLM` implements a singleton pattern to ensure only one instance of the
+# This Python class `OllamaLLM` implements a singleton pattern to ensure only one instance of the
 # class is created.
 class OllamaLLM:
 

@@ -1,12 +1,12 @@
 import json
 
-from typing import Annotated
-from fastapi import Depends, APIRouter
+from fastapi import APIRouter, HTTPException
 
-from .utils import clean_text
+from core.context import context
+
 from .models import Articles
-from .dependecies import LlmChainDependency, llm_chain as llm_chain_dependency
-from spacy import load
+from .utils import clean_text
+
 
 router = APIRouter(prefix="/categories", tags=["Categories"])
 
@@ -14,17 +14,19 @@ router = APIRouter(prefix="/categories", tags=["Categories"])
 @router.post(path="/generate")
 async def generate(
     body: Articles,
-    llm_chain: Annotated[
-        LlmChainDependency, Depends(dependency=llm_chain_dependency, use_cache=True)
-    ],
 ):
     cleaned_input = clean_text(body.article)
 
-    response = await llm_chain.get("category_chain").abatch(
+    llm = context.get("category_llm_dependency")
+
+    if not llm:
+        raise HTTPException(500, "LLM is not initialized")
+
+    response = await llm.get("category_chain").abatch(
         [
             {
                 "article": cleaned_input,
-                "response_format": llm_chain.get("response_format"),
+                "response_format": llm.get("response_format"),
             }
         ]
     )

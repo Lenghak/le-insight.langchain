@@ -3,7 +3,7 @@ This is the start of the application modules where all initializations are takin
 """
 
 import uvicorn
-from core import config
+from core import config, context
 from fastapi import FastAPI
 from routes import create_routes
 
@@ -13,7 +13,7 @@ settings = config.Settings.get_instance()
 
 # Creates an instance of the FastAPI class, which represents a
 # FastAPI application.
-app = FastAPI()
+app = FastAPI(lifespan=context.lifespan)
 
 # `setting = config.SingletonSettings.get_instance()` is a line of code that is likely retrieving an
 # instance of a SingletonSettings class from the config module.
