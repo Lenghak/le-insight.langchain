@@ -10,12 +10,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class _Settings(BaseSettings):
     APP_NAME: str
-
     ENV: Literal["production", "development"]
 
     OPENAI_API_KEY: str
-
     openapi_url: str = "/docs"
+
+    REDIS_URL: str
+
     model_config = SettingsConfigDict(env_file=".env")
 
 

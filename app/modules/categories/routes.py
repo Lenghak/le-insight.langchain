@@ -17,18 +17,19 @@ async def generate(
 ):
     cleaned_input = clean_text(body.article)
 
-    llm = context.get("category_llm_dependency")
+    llm = context.get("llm_dependency")
 
     if not llm:
         raise HTTPException(500, "LLM is not initialized")
 
-    response = await llm.get("category_chain").abatch(
-        [
-            {
-                "article": cleaned_input,
-                "response_format": llm.get("response_format"),
-            }
-        ]
+    chain = llm.get("chain")
+
+    response = await chain.ainvoke(
+        input={
+            "article": cleaned_input,
+            "categories": body.categories,
+            "response_format": llm.get("response_format"),
+        }
     )
 
-    return json.loads(response[0]["text"])
+    return json.loads(response)
