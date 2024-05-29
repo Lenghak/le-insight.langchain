@@ -32,6 +32,4 @@ async def generate(
         }
     )
 
-    logger.info(response)
-
     return json.loads(response)
