@@ -20,6 +20,7 @@ langchain-community = "^0.2.0"
 langchain-core = "^0.2.0"
 spacy = "^3.7.4"
 redis = "^5.0.4"
+ollama = "^0.2.0"
 
 
 [build-system]

@@ -1,7 +1,7 @@
 import json
 
 from fastapi import APIRouter, HTTPException
-
+from fastapi.logger import logger
 from core.context import context
 
 from .models import Articles
@@ -31,5 +31,7 @@ async def generate(
             "response_format": llm.get("response_format"),
         }
     )
+
+    logger.info(response)
 
     return json.loads(response)

@@ -27,9 +27,20 @@ class OllamaLLM:
 
     @classmethod
     def get_instance(
-        cls, model: Literal["llama2", "llama3", "llama3:text", "mistral", "mixstral"]
+        cls,
+        model: Literal[
+            "llama2",
+            "llama3",
+            "llama3:text",
+            "llama3:70b",
+            "mistral",
+            "mixstral",
+            "phi3",
+            "phi3:medium",
+        ],
     ):
         if cls._instance == None:
+            # ollama.pull(model=model)
             cls._instance = Ollama(model=model, format="json", temperature=0)
 
         return cls._instance

@@ -5,6 +5,7 @@ This is the start of the application modules where all initializations are takin
 import uvicorn
 from core import config, context
 from fastapi import FastAPI
+from fastapi.logger import logger
 from routes import create_routes
 
 # Retrieving an
@@ -22,7 +23,6 @@ setting = config.Settings.get_instance()
 # `create_routes(app)` is a function that is responsible for setting up and defining the routes for
 # the FastAPI application instance `app`.This function helps organize the routing logic within the FastAPI application.
 create_routes(app)
-
 
 if __name__ == "__main__":
     """

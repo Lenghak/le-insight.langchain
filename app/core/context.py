@@ -1,16 +1,15 @@
-from typing import Dict, TypedDict
+from typing import TypedDict
 from uuid import uuid5, NAMESPACE_DNS
 from fastapi import FastAPI
+from fastapi.logger import logger
 from langchain.prompts.prompt import PromptTemplate
 from langchain_core.runnables.base import RunnableSerializable
 from langchain_community.llms.ollama import Ollama
 from langchain_community.chat_message_histories.redis import RedisChatMessageHistory
-
+from langchain.globals import set_verbose
 from contextlib import asynccontextmanager
 
 from core.config import Settings
-
-
 from .llm import OllamaLLM
 
 
@@ -37,6 +36,7 @@ context: Context = {"llm_dependency": None}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    set_verbose(True)
 
     base_session_id = str(uuid5(NAMESPACE_DNS, "python.org"))
     base_history = RedisChatMessageHistory(
@@ -44,7 +44,7 @@ async def lifespan(app: FastAPI):
         url=Settings.get_instance().REDIS_URL,
     )
 
-    llm = OllamaLLM.get_instance(model="llama3")
+    llm = OllamaLLM.get_instance(model="phi3:medium")
 
     INPUT_TEMPLATE = """
                     RULES:
