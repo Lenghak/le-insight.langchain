@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-from modules.categories.routes import router as categories_router
+from modules.classifications.routes import router as classifications_router
+from modules.enhancements.routes import router as enhancements_router
 
-_routers = [categories_router]
+_routers = [classifications_router, enhancements_router]
 
 
 def create_routes(app: FastAPI):

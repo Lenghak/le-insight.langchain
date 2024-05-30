@@ -1,9 +1,11 @@
-from typing import Literal
+import logging
 
-from core.config import Settings
 from langchain_community.llms.ollama import Ollama
 from langchain_openai import ChatOpenAI
 from pydantic.v1 import SecretStr
+
+from core.config import Settings
+from modules.classifications.utils import LLMModels
 
 
 # The `OpenAILLM` class is a singleton class that provides a method `getInstance` to retrieve an
@@ -24,23 +26,15 @@ class OpenAILLM:
 class OllamaLLM:
 
     _instance = None
+    _model_name = None
 
     @classmethod
     def get_instance(
         cls,
-        model: Literal[
-            "llama2",
-            "llama3",
-            "llama3:text",
-            "llama3:70b",
-            "mistral",
-            "mixstral",
-            "phi3",
-            "phi3:medium",
-        ],
+        model: LLMModels,
     ):
-        if cls._instance == None:
-            # ollama.pull(model=model)
+        if cls._instance == None or cls._model_name != model:
             cls._instance = Ollama(model=model, format="json", temperature=0)
+            cls._model_name = model
 
         return cls._instance
