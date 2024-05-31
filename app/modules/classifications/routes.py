@@ -2,12 +2,14 @@ import json
 from typing import Annotated
 from fastapi import APIRouter, Query
 from langchain.prompts.prompt import PromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
 
 from core.llm import OllamaLLM
 from utils.constants.labelling_templates import (
     CATEGORY_INPUT_TEMPLATE,
     CATEGORY_RESPONSE_FORMAT,
 )
+
 from .models import Articles
 from .utils import LLMModels, clean_text
 
@@ -23,6 +25,8 @@ async def generate(
         Query(),
     ] = "phi3",
 ):
+    print(body)
+
     cleaned_input = clean_text(body.article)
 
     llm = OllamaLLM.get_instance(model=model)
